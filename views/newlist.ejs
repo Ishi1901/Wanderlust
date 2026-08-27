@@ -5,16 +5,16 @@
 
         <div class="col-8 offset-2">
             <br>
-    <form method="POST" action="/listings">
+    <form method="POST" action="/listings" novalidate class="needs-validation">
 
         <div class="mb-3">
             <label for="title" class="form-label">Title</label>
-            <input type="text" name="Listing[title]" class="form-control">
+            <input type="text" name="Listing[title]" class="form-control" required>
         </div>
 
         <div class="mb-3">
             <label for="description" class="form-label">Description</label>
-            <textarea name="Listing[description]" cols="15" rows="6" class="form-control"></textarea> 
+            <textarea name="Listing[description]" cols="15" rows="6" class="form-control" required></textarea> 
         </div>
 
         <div class="mb-3">
@@ -24,17 +24,17 @@
 <div class="row">
         <div class="mb-3 col-md-4">
             <label for="price" class="form-label">Price</label>
-            <input type="Number" name="Listing[price]" class="form-control"> 
+            <input type="Number" name="Listing[price]" class="form-control" required> 
         </div>
 
         <div class="mb-3 col-md-8">
             <label for="location" class="form-label">Location</label>
-            <input type="text" name="Listing[location]" class="form-control"> 
+            <input type="text" name="Listing[location]" class="form-control" required> 
         </div>
 </div>
         <div class="mb-3">
             <label for="Country" class="form-label">Country</label>
-            <input type="text" name="Listing[country]" class="form-control"> 
+            <input type="text" name="Listing[country]" class="form-control" required> 
         </div>
 <br><br>
         <button class="btn btn-dark add-btn">ADD</button>
