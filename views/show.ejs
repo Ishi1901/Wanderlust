@@ -12,18 +12,29 @@
     location: "Costa Rica",
     country: "Costa Rica",
   }, -->
+<div class="row">
+  <div class="card col-6 offset-2">
+    <img src="<%=info.image.url%>" class="card-img-top" alt="Listing image">
+  <div class="card-body">
+    <h5 class="card-title"> <%=info.title%></h5>
+    <p class="card-text">
+      <%=info.description%> <br>
+      &#8377 <%=info.price.toLocaleString("en-IN")%> <br>
+      <%=info.location%> <br>
+      <%=info.country%> 
+    </p>
+  </div>
+  </div>
 
-<h2>Title : <%=info.title%></h2>
-<p> Description : <%=info.description%>  </p> 
-<img src="<%=info.image.url%>" alt="<%=info.image.filename%>" width="400px" >
-<p> Price :&#8377 <%=info.price.toLocaleString("en-IN")%> </p>
-<p> Location : <%=info.location%> </p>
-<p> Country : <%=info.country%> </p>
-
-<a href="/listings/<%=info._id%>/edit">Edit your listing</a>
+  </div>
+<div class="row">
+  <div class="btns offset-2">
+    <a href="/listings/<%=info._id%>/edit" class="btn edit-btn col-1" >Edit </a>
 
 <form method="POST" action="/listings/<%=info._id%>?_method=DELETE"> 
-  <button>Delete</button>
+  <button class=" btn del-btn col-1 mb-3">Delete</button>
+  </div>
+</div>
 </form>
 
 
