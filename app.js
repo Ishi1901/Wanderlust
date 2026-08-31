@@ -5,6 +5,9 @@ const Listing = require("./Models/listing.js");
 const path = require("path");
 const engine = require('ejs-mate');
 const methodOverride = require("method-override")
+const wrapAsync = require("./utils/wrapAsync.js")
+const ExpressError = require("./utils/ExpressError.js")
+
 
 app.set("view engin","ejs");
 app.set("views",path.join(__dirname,"views"));
@@ -61,14 +64,24 @@ app.get("/listings/new",(req,res)=>{
 
 //create in db:
 
-app.post("/listings",async (req,res)=>{
-    // let Listing= req.body.Listing
-    // new Listing(Listing)
+// app.post("/listings",async (req,res,next)=>{
+//     // let Listing= req.body.Listing
+//     // new Listing(Listing)
+//     try{
+//     let newListing = new Listing(req.body.Listing);
+//     await newListing.save();
+//     res.redirect("/listings");
+
+//     } catch(err) {
+//         next(err);
+//     }
+
+// });
+app.post("/listings",wrapAsync (async (req,res,next)=>{
     let newListing = new Listing(req.body.Listing);
     await newListing.save();
     res.redirect("/listings");
-
-});
+}));
 
 //edit route:
 
@@ -102,6 +115,25 @@ app.delete("/listings/:id",async (req,res)=>{
     await Listing.findByIdAndDelete(id);
     res.redirect("/listings")
 });
+
+// // error handling.
+// app.use((err,req,res,next)=>{
+//     res.send("something went wrong!");
+// })
+
+// error handling with expressError: if we want to see status code etc
+
+
+app.all("/{*splat}",(req,res,next)=>{
+    next(new ExpressError(404,"Page not found!!"));
+});
+
+app.use((err,req,res,next)=>{
+    let {statusCode,message} = err;
+    res.status(statusCode).send(message);
+})
+
+
 
 app.listen(8080,()=>{
     console.log("Server is listening on port 8080");
