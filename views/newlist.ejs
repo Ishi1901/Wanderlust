@@ -9,32 +9,39 @@
 
         <div class="mb-3">
             <label for="title" class="form-label">Title</label>
-            <input type="text" name="Listing[title]" class="form-control" required>
+            <input type="text" name="listing[title]" class="form-control" required>
+            <div class="invalid-feedback">Enter valid title</div>
+            <div class="valid-feedback">Title looks good</div>
         </div>
 
         <div class="mb-3">
             <label for="description" class="form-label">Description</label>
-            <textarea name="Listing[description]" cols="15" rows="6" class="form-control" required></textarea> 
+            <textarea name="listing[description]" cols="15" rows="6" class="form-control" required></textarea> 
+            <div class="invalid-feedback">Enter valid Description</div>
         </div>
 
         <div class="mb-3">
             <label for="image" class="form-label">Image Link</label>
-            <input type="text" name="Listing[image]" placeholder="url/link" class="form-control">
+            <input type="text" name="listing[image][url]" placeholder="url/link" class="form-control">
+            <div class="invalid-feedback">Enter valid Image</div>
         </div>
 <div class="row">
         <div class="mb-3 col-md-4">
             <label for="price" class="form-label">Price</label>
-            <input  name="Listing[price]" class="form-control" required> 
+            <input  name="listing[price]" class="form-control" required> 
+            <div class="invalid-feedback">Enter valid Price</div>
         </div>
 
         <div class="mb-3 col-md-8">
             <label for="location" class="form-label">Location</label>
-            <input type="text" name="Listing[location]" class="form-control" required> 
+            <input type="text" name="listing[location]" class="form-control" required> 
+            <div class="invalid-feedback">Enter valid Location</div>
         </div>
 </div>
         <div class="mb-3">
             <label for="Country" class="form-label">Country</label>
-            <input type="text" name="Listing[country]" class="form-control" required> 
+            <input type="text" name="listing[country]" class="form-control" required> 
+            <div class="invalid-feedback">Enter valid Country</div>
         </div>
 <br><br>
         <button class="btn btn-dark add-btn">ADD</button>
