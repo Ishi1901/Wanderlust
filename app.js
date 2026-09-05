@@ -9,9 +9,16 @@ const URL_MONGO = "mongodb://127.0.0.1:27017/Wanderlust";
 const session = require("express-session")
 const flash = require("connect-flash")
 // *Routes*
-const listings = require("./routes/listing.js")
-const reviews = require("./routes/review.js")
+const listingRoute = require("./routes/listing.js")
+const reviewRoute = require("./routes/review.js")
+const userRoute = require("./routes/user.js")
 
+
+// *authentication*
+
+const passport = require("passport")
+const LocalStrategy = require("passport-local")
+const User = require("./Models/user.js");
 
 
 
@@ -51,9 +58,25 @@ const sessionOption = {
 
 };
 
-app.use(session(sessionOption))
+app.use(session(sessionOption))  //required for passposrt
 app.use(flash())
 
+app.use(passport.initialize())
+app.use(passport.session());
+passport.use(new LocalStrategy(User.authenticate())) // all users should be authenticated by localstategy
+
+passport.serializeUser(User.serializeUser())
+passport.deserializeUser(User.deserializeUser())
+
+
+app.get("/demouser",async(req,res)=>{
+    let fakeUser = new User({
+        email:"student@gmail.com",
+        username:"ramkumar"
+    });
+    let registerUser= await User.register(fakeUser,"helloworld");
+    res.send(registerUser)
+})
 // Home route
 
 app.get("/", (req, res) => {
@@ -65,15 +88,17 @@ app.get("/", (req, res) => {
 app.use((req,res,next)=>{
     res.locals.success = req.flash("success")   //sucess created here is an array 
     res.locals.error = req.flash("error")
-    next();
+    res.locals.currUser = req.user;
+    next(); 
 })
 
 
 
 // *Main routes*
 
-app.use("/listings",listings);
-app.use("/listings/:id/reviews",reviews)
+app.use("/listings",listingRoute);
+app.use("/listings/:id/reviews",reviewRoute)
+app.use("/",userRoute)
 
 // Handle invalid routes
 
